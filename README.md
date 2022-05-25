@@ -488,3 +488,45 @@ await app.listen(3000);
 ```
 
 ## 예외 처리
+
+### 사용자 정의 예외
+
+사용자 정의 예외를 작성할 필요는 거의 없다. 아무튼 사용법은 다음과 같다.
+
+```ts
+export class ForbiddenException extends HttpException {
+  constructor() {
+    super("Forbidden", HttpStatus.FORBIDDEN);
+  }
+}
+```
+
+```ts
+@Get()
+async findAll() {
+  throw new ForbiddenException();
+}
+```
+
+### 내장 예외 목록
+
+- BadRequestException
+- UnauthorizedException
+- NotFoundException
+- ForbiddenException
+- NotAcceptableException
+- RequestTimeoutException
+- ConflictException
+- GoneException
+- HttpVersionNotSupportedException
+- PayloadTooLargeException
+- UnsupportedMediaTypeException
+- UnprocessableEntityException
+- InternalServerErrorException
+- NotImplementedException
+- ImATeapotException
+- MethodNotAllowedException
+- BadGatewayException
+- ServiceUnavailableException
+- GatewayTimeoutException
+- PreconditionFailedException
