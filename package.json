@@ -1,0 +1,23 @@
+{
+  "name": "nest-js-crash-course",
+  "version": "1.0.0",
+  "description": "Crash course Learning Nest js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MingueKim/Nest-js-Crash-Course.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MingueKim/Nest-js-Crash-Course/issues"
+  },
+  "homepage": "https://github.com/MingueKim/Nest-js-Crash-Course#readme",
+  "devDependencies": {
+    "@nestjs/cli": "^8.2.6"
+  }
+}
