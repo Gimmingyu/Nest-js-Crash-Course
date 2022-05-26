@@ -11,11 +11,11 @@ $ nest new project-name
 
 ## 개요
 
--   app.controller.ts : 단일 경로가 있는 기본 컨트롤러
--   app.controller.spec.ts: 컨트롤러에 대한 단위 테스트
--   app.module.ts : 애플리케이션의 루트 모듈
--   app.service.ts : 기본 서비스 제공
--   main.ts : 핵심 기능 `Nest Factory`를 사용하여 Nest 애플리케이션 인스턴스를 생성하는 애플리케이션의 항목
+- app.controller.ts : 단일 경로가 있는 기본 컨트롤러
+- app.controller.spec.ts: 컨트롤러에 대한 단위 테스트
+- app.module.ts : 애플리케이션의 루트 모듈
+- app.service.ts : 기본 서비스 제공
+- main.ts : 핵심 기능 `Nest Factory`를 사용하여 Nest 애플리케이션 인스턴스를 생성하는 애플리케이션의 항목
 
 ## 플랫폼
 
@@ -62,19 +62,19 @@ import { Test, TestingModule } from "@nestjs/testing";
 import { CatsController } from "./cats.controller";
 
 describe("CatsController", () => {
-	let controller: CatsController;
+  let controller: CatsController;
 
-	beforeEach(async () => {
-		const module: TestingModule = await Test.createTestingModule({
-			controllers: [CatsController],
-		}).compile();
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [CatsController]
+    }).compile();
 
-		controller = module.get<CatsController>(CatsController);
-	});
+    controller = module.get<CatsController>(CatsController);
+  });
 
-	it("should be defined", () => {
-		expect(controller).toBeDefined();
-	});
+  it("should be defined", () => {
+    expect(controller).toBeDefined();
+  });
 });
 ```
 
@@ -85,15 +85,15 @@ import { Controller, Get, Post } from "@nestjs/common";
 
 @Controller("cats")
 export class CatsController {
-	@Post()
-	create(): string {
-		return "This action adds a new cat";
-	}
+  @Post()
+  create(): string {
+    return "This action adds a new cat";
+  }
 
-	@Get()
-	findAll(): string {
-		return "This action returns all cats";
-	}
+  @Get()
+  findAll(): string {
+    return "This action returns all cats";
+  }
 }
 ```
 
@@ -124,9 +124,9 @@ create-cat.dto.ts
 
 ```ts
 export class CreateCatDto {
-	name: string;
-	age: number;
-	breed: string;
+  name: string;
+  age: number;
+  breed: string;
 }
 ```
 
@@ -151,15 +151,15 @@ import { Cat } from "./interfaces/cat.interface";
 
 @Injectable()
 export class CatsService {
-	private readonly cats: Cat[] = [];
+  private readonly cats: Cat[] = [];
 
-	create(cat: Cat) {
-		this.cats.push(cat);
-	}
+  create(cat: Cat) {
+    this.cats.push(cat);
+  }
 
-	findAll(): Cat[] {
-		return this.cats;
-	}
+  findAll(): Cat[] {
+    return this.cats;
+  }
 }
 ```
 
@@ -167,9 +167,9 @@ cat.interface.ts
 
 ```ts
 export interface Cat {
-	name: string;
-	age: number;
-	breed: string;
+  name: string;
+  age: number;
+  breed: string;
 }
 ```
 
@@ -183,17 +183,17 @@ import { Cat } from "./interfaces/cat.interface";
 
 @Controller("cats")
 export class CatsController {
-	constructor(private catsService: CatsService) {}
+  constructor(private catsService: CatsService) {}
 
-	@Post()
-	async create(@Body() createCatDto: CreateCatDto) {
-		this.catsService.create(createCatDto);
-	}
+  @Post()
+  async create(@Body() createCatDto: CreateCatDto) {
+    this.catsService.create(createCatDto);
+  }
 
-	@Get()
-	async findAll(): Promise<Cat[]> {
-		return this.catsService.findAll();
-	}
+  @Get()
+  async findAll(): Promise<Cat[]> {
+    return this.catsService.findAll();
+  }
 }
 ```
 
@@ -212,7 +212,7 @@ import { Injectable, Optional, Inject } from "@nestjs/common";
 
 @Injectable()
 export class HttpService<T> {
-	constructor(@Optional() @Inject("HTTP_OPTIONS") private httpClient: T) {}
+  constructor(@Optional() @Inject("HTTP_OPTIONS") private httpClient: T) {}
 }
 ```
 
@@ -229,8 +229,8 @@ import { Injectable, Inject } from "@nestjs/common";
 
 @Injectable()
 export class HttpService<T> {
-	@Inject("HTTP_OPTIONS")
-	private readonly httpClient: T;
+  @Inject("HTTP_OPTIONS")
+  private readonly httpClient: T;
 }
 ```
 
@@ -244,8 +244,8 @@ import { CatsController } from "./cats/cats.controller";
 import { CatsService } from "./cats/cats.service";
 
 @Module({
-	controllers: [CatsController],
-	providers: [CatsService],
+  controllers: [CatsController],
+  providers: [CatsService]
 })
 export class AppModule {}
 ```
@@ -280,8 +280,8 @@ import { CatsController } from "./cats.controller";
 import { CatsService } from "./cats.service";
 
 @Module({
-	controllers: [CatsController],
-	providers: [CatsService],
+  controllers: [CatsController],
+  providers: [CatsService]
 })
 export class CatsModule {}
 ```
@@ -303,7 +303,7 @@ import { Module } from "@nestjs/common";
 import { CatsModule } from "./cats/cats.module";
 
 @Module({
-	imports: [CatsModule],
+  imports: [CatsModule]
 })
 export class AppModule {}
 ```
@@ -323,11 +323,11 @@ import { CatsController } from "./cats.controller";
 import { CatsService } from "./cats.service";
 
 @Module({
-	controllers: [CatsController],
-	providers: [CatsService],
+  controllers: [CatsController],
+  providers: [CatsService]
 })
 export class CatsModule {
-	constructor(private catsService: CatsService) {}
+  constructor(private catsService: CatsService) {}
 }
 ```
 
@@ -346,9 +346,9 @@ import { CatsService } from "./cats.service";
 
 @Global()
 @Module({
-	controllers: [CatsController],
-	providers: [CatsService],
-	exports: [CatsService],
+  controllers: [CatsController],
+  providers: [CatsService],
+  exports: [CatsService]
 })
 export class CatsModule {}
 ```
@@ -365,17 +365,17 @@ import { createDatabaseProviders } from "./database.providers";
 import { Connection } from "./connection.provider";
 
 @Module({
-	providers: [Connection],
+  providers: [Connection]
 })
 export class DatabaseModule {
-	static forRoot(entities = [], options?): DynamicModule {
-		const providers = createDatabaseProviders(options, entities);
-		return {
-			module: DatabaseModule,
-			providers: providers,
-			exports: providers,
-		};
-	}
+  static forRoot(entities = [], options?): DynamicModule {
+    const providers = createDatabaseProviders(options, entities);
+    return {
+      module: DatabaseModule,
+      providers: providers,
+      exports: providers
+    };
+  }
 }
 ```
 
@@ -397,10 +397,10 @@ import { Request, Response, NextFunction } from "express";
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
-	use(req: Request, res: Response, next: NextFunction) {
-		console.log("Request...");
-		next();
-	}
+  use(req: Request, res: Response, next: NextFunction) {
+    console.log("Request...");
+    next();
+  }
 }
 ```
 
@@ -422,12 +422,12 @@ import { LoggerMiddleware } from "./common/middleware/logger.middleware";
 import { CatsModule } from "./cats/cats.module";
 
 @Module({
-	imports: [CatsModule],
+  imports: [CatsModule]
 })
 export class AppModule implements NestModule {
-	configure(consumer: MiddlewareConsumer) {
-		consumer.apply(LoggerMiddleware).forRoutes("cats");
-	}
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes("cats");
+  }
 }
 ```
 
@@ -443,12 +443,12 @@ import { CatsModule } from "./cats/cats.module";
 import { CatsController } from "./cats/cats.controller";
 
 @Module({
-	imports: [CatsModule],
+  imports: [CatsModule]
 })
 export class AppModule implements NestModule {
-	configure(consumer: MiddlewareConsumer) {
-		consumer.apply(LoggerMiddleware).forRoutes(CatsController);
-	}
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes(CatsController);
+  }
 }
 ```
 
@@ -462,8 +462,8 @@ export class AppModule implements NestModule {
 import { Request, Response, NextFunction } from "express";
 
 export function logger(req: Request, res: Response, next: NextFunction) {
-	console.log(`Request...`);
-	next();
+  console.log(`Request...`);
+  next();
 }
 ```
 
@@ -495,9 +495,9 @@ await app.listen(3000);
 
 ```ts
 export class ForbiddenException extends HttpException {
-	constructor() {
-		super("Forbidden", HttpStatus.FORBIDDEN);
-	}
+  constructor() {
+    super("Forbidden", HttpStatus.FORBIDDEN);
+  }
 }
 ```
 
@@ -510,26 +510,26 @@ async findAll() {
 
 ### 내장 예외 목록
 
--   BadRequestException
--   UnauthorizedException
--   NotFoundException
--   ForbiddenException
--   NotAcceptableException
--   RequestTimeoutException
--   ConflictException
--   GoneException
--   HttpVersionNotSupportedException
--   PayloadTooLargeException
--   UnsupportedMediaTypeException
--   UnprocessableEntityException
--   InternalServerErrorException
--   NotImplementedException
--   ImATeapotException
--   MethodNotAllowedException
--   BadGatewayException
--   ServiceUnavailableException
--   GatewayTimeoutException
--   PreconditionFailedException
+- BadRequestException
+- UnauthorizedException
+- NotFoundException
+- ForbiddenException
+- NotAcceptableException
+- RequestTimeoutException
+- ConflictException
+- GoneException
+- HttpVersionNotSupportedException
+- PayloadTooLargeException
+- UnsupportedMediaTypeException
+- UnprocessableEntityException
+- InternalServerErrorException
+- NotImplementedException
+- ImATeapotException
+- MethodNotAllowedException
+- BadGatewayException
+- ServiceUnavailableException
+- GatewayTimeoutException
+- PreconditionFailedException
 
 ### 예외 필터링(Exception Filter)
 
@@ -544,27 +544,27 @@ catch()는 매개변수를 여러 개 넣을 수도 있다.
 
 ```ts
 import {
-	ExceptionFilter,
-	Catch,
-	ArgumentsHost,
-	HttpException,
+  ExceptionFilter,
+  Catch,
+  ArgumentsHost,
+  HttpException
 } from "@nestjs/common";
 import { Request, Response } from "express";
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-	catch(exception: HttpException, host: ArgumentsHost) {
-		const ctx = host.switchToHttp();
-		const response = ctx.getResponse<Response>();
-		const request = ctx.getRequest<Request>();
-		const status = exception.getStatus();
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp();
+    const response = ctx.getResponse<Response>();
+    const request = ctx.getRequest<Request>();
+    const status = exception.getStatus();
 
-		response.status(status).json({
-			statusCode: status,
-			timestamp: new Date().toISOString(),
-			path: request.url,
-		});
-	}
+    response.status(status).json({
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: request.url
+    });
+  }
 }
 ```
 
@@ -581,14 +581,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
 ### Nest 내장 파이프
 
--   ValidationPipe
--   ParseIntPipe
--   ParseFloatPipe
--   ParseBoolPipe
--   ParseArrayPipe
--   ParseUUIDPipe
--   ParseEnumPipe
--   DefaultValuePipe
+- ValidationPipe
+- ParseIntPipe
+- ParseFloatPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- ParseEnumPipe
+- DefaultValuePipe
 
 ParseIntPipe는 매개변수가 Javascript 정수로 변환되게 해주는 Transform 사례의 예시이다.
 
@@ -609,9 +609,9 @@ create-cat.dto.ts
 
 ```ts
 export class CreateCatDto {
-	name: string;
-	age: number;
-	breed: string;
+  name: string;
+  age: number;
+  breed: string;
 }
 ```
 
@@ -638,23 +638,91 @@ $ npm install --save-dev @types/joi
 
 ```ts
 import {
-	PipeTransform,
-	Injectable,
-	ArgumentMetadata,
-	BadRequestException,
+  PipeTransform,
+  Injectable,
+  ArgumentMetadata,
+  BadRequestException
 } from "@nestjs/common";
 import { ObjectSchema } from "joi";
 
 @Injectable()
 export class JoiValidationPipe implements PipeTransform {
-	constructor(private schema: ObjectSchema) {}
+  constructor(private schema: ObjectSchema) {}
 
-	transform(value: any, metadata: ArgumentMetadata) {
-		const { error } = this.schema.validate(value);
-		if (error) {
-			throw new BadRequestException("Validation failed");
-		}
-		return value;
-	}
+  transform(value: any, metadata: ArgumentMetadata) {
+    const { error } = this.schema.validate(value);
+    if (error) {
+      throw new BadRequestException("Validation failed");
+    }
+    return value;
+  }
+}
+```
+
+### 유효성 검사 파이프 바인딩
+
+예시
+
+```ts
+@Post()
+@UsePipes(new JoiValidationPipe(createCatSchema))
+async create(@Body() createCatDto: CreateCatDto) {
+  this.catsService.create(createCatDto);
+}
+```
+
+### 클래스 유효성 검사기
+
+```shell
+$ npm i --save class-validator class-transformer
+```
+
+사용 예시
+
+```ts
+import { IsString, IsInt } from "class-validator";
+
+export class CreateCatDto {
+  @IsString()
+  name: string;
+
+  @IsInt()
+  age: number;
+
+  @IsString()
+  breed: string;
+}
+```
+
+여러 기법을 사용하게되면 다음과 같이 표현이 가능하다.
+
+```ts
+import {
+  PipeTransform,
+  Injectable,
+  ArgumentMetadata,
+  BadRequestException
+} from "@nestjs/common";
+import { validate } from "class-validator";
+import { plainToClass } from "class-transformer";
+
+@Injectable()
+export class ValidationPipe implements PipeTransform<any> {
+  async transform(value: any, { metatype }: ArgumentMetadata) {
+    if (!metatype || !this.toValidate(metatype)) {
+      return value;
+    }
+    const object = plainToClass(metatype, value);
+    const errors = await validate(object);
+    if (errors.length > 0) {
+      throw new BadRequestException("Validation failed");
+    }
+    return value;
+  }
+
+  private toValidate(metatype: Function): boolean {
+    const types: Function[] = [String, Boolean, Number, Array, Object];
+    return !types.includes(metatype);
+  }
 }
 ```
